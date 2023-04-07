@@ -1097,6 +1097,36 @@ impl ClientBuilder {
         self
     }
 
+    pub fn http2_max_concurrent_streams(mut self, sz: impl Into<Option<u32>>) -> ClientBuilder {
+        self.config.http2_max_concurrent_streams = sz.into();
+        self
+    }
+
+    /// Sets the max header list size to use for HTTP2.
+    ///
+    /// Passing `None` will do nothing.
+    pub fn http2_max_header_list_size(mut self, sz: impl Into<Option<u32>>) -> ClientBuilder {
+        self.config.http2_max_header_list_size = sz.into();
+        self
+    }
+
+    /// Enables and disables the push feature for HTTP2.
+    ///
+    /// Passing `None` will do nothing.
+    pub fn http2_enable_push(mut self, sz: impl Into<Option<bool>>) -> ClientBuilder {
+        self.config.http2_enable_push = sz.into();
+        self
+    }
+
+    /// Sets the header table size to use for HTTP2.
+    ///
+    /// Passing `None` will do nothing.
+
+    pub fn http2_header_table_size(mut self, sz: impl Into<Option<u32>>) -> ClientBuilder {
+        self.config.http2_header_table_size = sz.into();
+        self
+    }
+
     // TCP options
 
     /// Set whether sockets have `TCP_NODELAY` enabled.
