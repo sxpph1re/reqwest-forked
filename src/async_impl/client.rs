@@ -123,7 +123,6 @@ struct Config {
     http2_initial_stream_window_size: Option<u32>,
     http2_initial_connection_window_size: Option<u32>,
     http2_adaptive_window: bool,
-    http2_max_frame_size: Option<u32>,
     http2_max_concurrent_streams: Option<u32>,
     http2_max_header_list_size: Option<u32>,
     http2_enable_push: Option<bool>,
@@ -208,7 +207,6 @@ impl ClientBuilder {
                 http2_initial_stream_window_size: None,
                 http2_initial_connection_window_size: None,
                 http2_adaptive_window: false,
-                http2_max_frame_size: None,
                 http2_max_concurrent_streams: None,
                 http2_max_header_list_size: None,
                 http2_enable_push: None,
@@ -566,9 +564,6 @@ impl ClientBuilder {
         }
         if config.http2_adaptive_window {
             builder.http2_adaptive_window(true);
-        }
-        if let Some(http2_max_frame_size) = config.http2_max_frame_size {
-            builder.http2_max_frame_size(http2_max_frame_size);
         }
         if let Some(max) = config.http2_max_concurrent_streams {
             builder.http2_max_concurrent_streams(max);
@@ -1059,10 +1054,6 @@ impl ClientBuilder {
     /// Sets the maximum frame size to use for HTTP2.
     ///
     /// Default is currently 16,384 but may change internally to optimize for common uses.
-    pub fn http2_max_frame_size(mut self, sz: impl Into<Option<u32>>) -> ClientBuilder {
-        self.config.http2_max_frame_size = sz.into();
-        self
-    }
 
     /// Sets an interval for HTTP2 Ping frames should be sent to keep a connection alive.
     ///
